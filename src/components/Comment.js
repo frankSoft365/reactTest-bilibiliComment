@@ -1,19 +1,20 @@
 import { useEffect, useState, useRef } from 'react';
 import './comment.css';
-import skirkImg from '../assets/skirk.jpg';
-import ayakaImg from '../assets/ayaka.jpg';
-import fireflyEyeImg from '../assets/fireflyEye.jpg';
 import { v4 as uuidv4 } from 'uuid';
 import dayjs from 'dayjs';
+import axios from 'axios';
 
 export default function Comment() {
-    const [user, setUser] = useState({ id: '230522512', name: 'frank', image: skirkImg });
+    const [user, setUser] = useState({ id: '230522512', name: 'frank', image: 'https://raw.githubusercontent.com/frankSoft365/images/505e4b12ea5d865565358b8ee40a054f1271dbe6/skirk.jpg' });
+    // 用户所输入的评论
     const [comment, setComment] = useState('');
     const [state, setState] = useState('hot');
     const [isFocused, setIsFocused] = useState(false);
     const [isShowWarning, setIsShowWarning] = useState(false);
     const [numOfClick, setNumOfClick] = useState(0);
+    // 所有评论的列表
     const [comments, setComments] = useState([]);
+    // 评论列表中的评论数量
     const numOfComments = comments.length;
     const lengthOfComment = comment.length;
     const inputRef = useRef(null);
@@ -25,6 +26,13 @@ export default function Comment() {
             console.log('clear a interval');
         };
     }, [numOfClick]);
+    useEffect(() => {
+        async function getCommentList() {
+            const res = await axios.get('http://localhost:3004/comments');
+            setComments(res.data);
+        }
+        getCommentList();
+    }, []);
     function handleCommit(e) {
         e.stopPropagation();
         if (lengthOfComment === 0) {
@@ -62,28 +70,28 @@ export default function Comment() {
                 user = {
                     id: '230522512',
                     name: 'frank',
-                    image: skirkImg
+                    image: 'https://raw.githubusercontent.com/frankSoft365/images/505e4b12ea5d865565358b8ee40a054f1271dbe6/skirk.jpg'
                 };
                 break;
             case 'tom':
                 user = {
                     id: '230522513',
                     name: 'tom',
-                    image: ayakaImg
+                    image: 'https://raw.githubusercontent.com/frankSoft365/images/505e4b12ea5d865565358b8ee40a054f1271dbe6/ayaka.jpg'
                 };
                 break;
             case 'jane':
                 user = {
                     id: '230522514',
                     name: 'jane',
-                    image: fireflyEyeImg
+                    image: 'https://raw.githubusercontent.com/frankSoft365/images/505e4b12ea5d865565358b8ee40a054f1271dbe6/fireflyEye.jpg'
                 };
                 break;
             default:
                 user = {
                     id: '230522512',
                     name: 'frank',
-                    image: skirkImg
+                    image: 'https://raw.githubusercontent.com/frankSoft365/images/505e4b12ea5d865565358b8ee40a054f1271dbe6/skirk.jpg'
                 };
         }
         setUser(user);
