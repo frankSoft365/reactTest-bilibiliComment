@@ -1,9 +1,11 @@
-import Comment from './components/Comment';
+import CommentsBlock from './components/CommentsBlock';
+import Counter from './components/Counter';
 
 function App() {
   return (
     <div className="App">
-      <Comment />
+      <CommentsBlock />
+      <Counter />
     </div>
   );
 }

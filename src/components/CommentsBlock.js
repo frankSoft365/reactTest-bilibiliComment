@@ -1,10 +1,27 @@
 import { useEffect, useState, useRef } from 'react';
-import './comment.css';
+import './CommentsBlock.css';
 import { v4 as uuidv4 } from 'uuid';
 import dayjs from 'dayjs';
 import axios from 'axios';
 
-export default function Comment() {
+function useGetList() {
+    // 所有评论的列表
+    const [comments, setComments] = useState([]);
+    // 获取数据
+    useEffect(() => {
+        async function getCommentList() {
+            const res = await axios.get('http://localhost:3004/comments');
+            setComments(res.data);
+        }
+        getCommentList();
+    }, []);
+    return {
+        comments,
+        setComments
+    };
+}
+
+export default function CommentsBlock() {
     const [user, setUser] = useState({ id: '230522512', name: 'frank', image: 'https://raw.githubusercontent.com/frankSoft365/images/505e4b12ea5d865565358b8ee40a054f1271dbe6/skirk.jpg' });
     // 用户所输入的评论
     const [comment, setComment] = useState('');
@@ -12,8 +29,7 @@ export default function Comment() {
     const [isFocused, setIsFocused] = useState(false);
     const [isShowWarning, setIsShowWarning] = useState(false);
     const [numOfClick, setNumOfClick] = useState(0);
-    // 所有评论的列表
-    const [comments, setComments] = useState([]);
+    const { comments, setComments } = useGetList();
     // 评论列表中的评论数量
     const numOfComments = comments.length;
     const lengthOfComment = comment.length;
@@ -26,13 +42,7 @@ export default function Comment() {
             console.log('clear a interval');
         };
     }, [numOfClick]);
-    useEffect(() => {
-        async function getCommentList() {
-            const res = await axios.get('http://localhost:3004/comments');
-            setComments(res.data);
-        }
-        getCommentList();
-    }, []);
+    // 用户点击提交评论的事件处理
     function handleCommit(e) {
         e.stopPropagation();
         if (lengthOfComment === 0) {
@@ -59,6 +69,7 @@ export default function Comment() {
         inputRef.current.focus();
         setIsFocused(true);
     }
+    // 用户删除自己的评论
     function handleDelete(id) {
         setComments(comments.filter(comment => comment.id !== id));
     }
@@ -96,6 +107,7 @@ export default function Comment() {
         }
         setUser(user);
     }
+    // 用户给评论点赞
     function handleLike(id) {
         setComments(comments.map((comment) => {
             if (comment.id !== id) {
@@ -107,6 +119,7 @@ export default function Comment() {
             });
         }));
     }
+    // 排序后的评论列表
     let sortedComments;
     if (state === 'hot') {
         sortedComments = comments.slice().sort((a, b) => b.commentLike - a.commentLike);
@@ -172,21 +185,13 @@ export default function Comment() {
                     </div>
                     : sortedComments.map((comment) => {
                         return (
-                            <div className='comment' key={comment.id}>
-                                <Profile user={comment.commentUser} />
-                                <div className='name-content-time-like-delete'>
-                                    <div className='name'>{comment.commentUser.name}</div>
-                                    <p className='content'>{comment.commentContent}</p>
-                                    <div className='time-like-delete'>
-                                        <div className='flex-item'>{comment.commentTime}</div>
-                                        <div className='flex-item like-btn-and-num'>
-                                            <button className='like-btn' onClick={() => handleLike(comment.id)}></button>
-                                            <div>{comment.commentLike === 0 ? '' : comment.commentLike}</div>
-                                        </div>
-                                        <div className='flex-item'>{comment.commentUser.id === user.id && <button onClick={() => handleDelete(comment.id)}>删除</button>}</div>
-                                    </div>
-                                </div>
-                            </div>
+                            <CommentItem
+                                key={comment.id}
+                                user={user}
+                                comment={comment}
+                                handleLike={handleLike}
+                                handleDelete={handleDelete}
+                            />
                         );
                     })}
             </div>
@@ -198,6 +203,26 @@ function Profile({ user }) {
     return (
         <div className='profile'>
             <img src={user.image} alt='icon' />
+        </div>
+    );
+}
+
+function CommentItem({ user, comment, handleLike, handleDelete }) {
+    return (
+        <div className='comment' >
+            <Profile user={comment.commentUser} />
+            <div className='name-content-time-like-delete'>
+                <div className='name'>{comment.commentUser.name}</div>
+                <p className='content'>{comment.commentContent}</p>
+                <div className='time-like-delete'>
+                    <div className='flex-item'>{comment.commentTime}</div>
+                    <div className='flex-item like-btn-and-num'>
+                        <button className='like-btn' onClick={() => handleLike(comment.id)}></button>
+                        <div>{comment.commentLike === 0 ? '' : comment.commentLike}</div>
+                    </div>
+                    <div className='flex-item'>{comment.commentUser.id === user.id && <button onClick={() => handleDelete(comment.id)}>删除</button>}</div>
+                </div>
+            </div>
         </div>
     );
 }
