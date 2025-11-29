@@ -202,7 +202,7 @@
 }
 
 .time-like-delete .like-btn-and-num .like-btn {
-    background-image: url(../assets/thumb_up_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.png);
+    background-image: url(../../assets/thumb_up_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.png);
     background-size: cover;
     background-repeat: no-repeat;
     width: 14px;
@@ -211,5 +211,5 @@
 }
 
 .time-like-delete .like-btn-and-num .like-btn:hover {
-    background-image: url(../assets/bluethumb.png);
+    background-image: url(../../assets/bluethumb.png);
 }
