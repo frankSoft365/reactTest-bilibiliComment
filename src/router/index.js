@@ -2,8 +2,25 @@ import Login from "../pages/Login";
 import Article from "../pages/Article";
 
 import { createBrowserRouter } from "react-router-dom";
+import Layout from "../pages/Layout";
+import About from "../pages/About";
+import Board from "../pages/Board";
 
 const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <Layout />,
+        children: [
+            {
+                index: true,
+                element: <About />
+            },
+            {
+                path: 'Board',
+                element: <Board />
+            }
+        ]
+    },
     {
         path: '/login',
         element: <Login />

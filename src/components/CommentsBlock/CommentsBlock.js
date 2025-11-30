@@ -3,6 +3,7 @@ import './CommentsBlock.css';
 import { v4 as uuidv4 } from 'uuid';
 import dayjs from 'dayjs';
 import axios from 'axios';
+import { useSearchParams } from 'react-router-dom';
 
 function useGetList() {
     // 所有评论的列表
@@ -22,7 +23,8 @@ function useGetList() {
 }
 
 export default function CommentsBlock() {
-    const [user, setUser] = useState({ id: '230522512', name: 'frank', image: 'https://raw.githubusercontent.com/frankSoft365/images/505e4b12ea5d865565358b8ee40a054f1271dbe6/skirk.jpg' });
+    const [params] = useSearchParams();
+    const [user, setUser] = useState({ id: 0, name: 'null', image: 'null' });
     // 用户所输入的评论
     const [comment, setComment] = useState('');
     const [state, setState] = useState('hot');
@@ -42,6 +44,28 @@ export default function CommentsBlock() {
             console.log('clear a interval');
         };
     }, [numOfClick]);
+    // 获取user
+    useEffect(() => {
+        const userName = params.get('user');
+        const users = {
+            frank: {
+                id: '230522512',
+                name: 'frank',
+                image: 'https://raw.githubusercontent.com/frankSoft365/images/505e4b12ea5d865565358b8ee40a054f1271dbe6/skirk.jpg'
+            },
+            tom: {
+                id: '230522513',
+                name: 'tom',
+                image: 'https://raw.githubusercontent.com/frankSoft365/images/505e4b12ea5d865565358b8ee40a054f1271dbe6/ayaka.jpg'
+            },
+            jane: {
+                id: '230522514',
+                name: 'jane',
+                image: 'https://raw.githubusercontent.com/frankSoft365/images/505e4b12ea5d865565358b8ee40a054f1271dbe6/fireflyEye.jpg'
+            }
+        };
+        setUser(users[userName]);
+    }, [params]);
     // 用户点击提交评论的事件处理
     function handleCommit(e) {
         e.stopPropagation();
@@ -73,40 +97,6 @@ export default function CommentsBlock() {
     function handleDelete(id) {
         setComments(comments.filter(comment => comment.id !== id));
     }
-    function handleSelect(e) {
-        const userName = e.target.value;
-        let user;
-        switch (userName) {
-            case 'frank':
-                user = {
-                    id: '230522512',
-                    name: 'frank',
-                    image: 'https://raw.githubusercontent.com/frankSoft365/images/505e4b12ea5d865565358b8ee40a054f1271dbe6/skirk.jpg'
-                };
-                break;
-            case 'tom':
-                user = {
-                    id: '230522513',
-                    name: 'tom',
-                    image: 'https://raw.githubusercontent.com/frankSoft365/images/505e4b12ea5d865565358b8ee40a054f1271dbe6/ayaka.jpg'
-                };
-                break;
-            case 'jane':
-                user = {
-                    id: '230522514',
-                    name: 'jane',
-                    image: 'https://raw.githubusercontent.com/frankSoft365/images/505e4b12ea5d865565358b8ee40a054f1271dbe6/fireflyEye.jpg'
-                };
-                break;
-            default:
-                user = {
-                    id: '230522512',
-                    name: 'frank',
-                    image: 'https://raw.githubusercontent.com/frankSoft365/images/505e4b12ea5d865565358b8ee40a054f1271dbe6/skirk.jpg'
-                };
-        }
-        setUser(user);
-    }
     // 用户给评论点赞
     function handleLike(id) {
         setComments(comments.map((comment) => {
@@ -127,14 +117,7 @@ export default function CommentsBlock() {
         sortedComments = comments.slice().sort((a, b) => b.commitTime - a.commitTime);
     }
     return (
-        <div className='comment-component' onClick={() => setIsFocused(false)}>
-            <div className='select-user-dropdown'>
-                <select onChange={e => handleSelect(e)}>
-                    <option value='frank'>frank</option>
-                    <option value='tom'>tom</option>
-                    <option value='jane'>jane</option>
-                </select>
-            </div>
+        user && <div className='comment-component' onClick={() => setIsFocused(false)}>
             <div className="current-state-bar">
                 <div className='text-and-num-of-comments'>
                     <div className='text'>评论</div>
