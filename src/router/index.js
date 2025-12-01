@@ -5,6 +5,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "../pages/Layout";
 import About from "../pages/About";
 import Board from "../pages/Board";
+import NotFound from "../pages/NotFound";
 
 const router = createBrowserRouter([
     {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
     {
         path: '/article',
         element: <Article />
+    },
+    {
+        path: '*',
+        element: <NotFound />
     }
 ]);
 

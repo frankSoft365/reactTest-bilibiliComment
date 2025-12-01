@@ -9,6 +9,17 @@
     align-items: center;
     justify-content: left;
     gap: 20px;
+    position: relative;
+}
+
+.navigation::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -5px;
+    height: 7px;
+    background: linear-gradient(to bottom, rgb(99, 97, 97), white);
 }
 
 .navigation a {
