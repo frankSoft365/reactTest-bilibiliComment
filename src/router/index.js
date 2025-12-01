@@ -6,6 +6,9 @@ import Layout from "../pages/Layout";
 import About from "../pages/About";
 import Board from "../pages/Board";
 import NotFound from "../pages/NotFound";
+import Month from "@/pages/Month";
+import Year from "@/pages/Year";
+import New from "@/pages/New";
 
 const router = createBrowserRouter([
     {
@@ -17,8 +20,16 @@ const router = createBrowserRouter([
                 element: <About />
             },
             {
-                path: 'Board',
+                path: 'board',
                 element: <Board />
+            },
+            {
+                path: 'month',
+                element: <Month />
+            },
+            {
+                path: 'year',
+                element: <Year />
             }
         ]
     },
@@ -29,6 +40,10 @@ const router = createBrowserRouter([
     {
         path: '/article',
         element: <Article />
+    },
+    {
+        path: '/new',
+        element: <New />
     },
     {
         path: '*',

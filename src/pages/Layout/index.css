@@ -4,6 +4,7 @@
 }
 
 .navigation {
+    padding: 5px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -17,7 +18,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -5px;
+    bottom: 0;
     height: 7px;
     background: linear-gradient(to bottom, rgb(99, 97, 97), white);
 }

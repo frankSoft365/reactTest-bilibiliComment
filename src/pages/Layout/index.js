@@ -7,6 +7,9 @@ export default function Layout() {
             <nav className="navigation">
                 <Link to={'/'}>about</Link>
                 <Link to={'/board'}>board</Link>
+                <Link to={'/month'}>month</Link>
+                <Link to={'/year'}>year</Link>
+                <Link to={'/new'}>new</Link>
                 <Link to={'/login'}>前往登录</Link>
             </nav>
             <Outlet />

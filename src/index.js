@@ -5,9 +5,6 @@ import store from './store/index.js';
 import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 import router from './router/index.js';
-import sum from '@/test';
-
-console.log(sum(1, 3));
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
