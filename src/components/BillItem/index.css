@@ -1,0 +1,22 @@
+.bill-item {
+    width: 300px;
+    height: 50px;
+    padding: 10px;
+    margin: 5px 0 5px 0;
+    border-radius: 10px;
+    background-color: rgba(150, 191, 36, 0.473);
+    color: rgba(50, 16, 217, 0.471);
+    display: flex;
+    flex-direction: column;
+}
+
+.bill-item .type-useFor-money {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.bill-item .date {
+    text-align: right;
+}
