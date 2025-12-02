@@ -1,7 +1,14 @@
 import { Link, Outlet } from "react-router-dom";
 import './index.css';
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getBillList } from "@/store/modules/billStore";
 
 export default function Layout() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getBillList());
+    }, [dispatch]);
     return (
         <div className="layout">
             <nav className="navigation">

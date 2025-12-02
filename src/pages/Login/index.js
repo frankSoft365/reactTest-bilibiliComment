@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 
 export default function Login() {
@@ -11,6 +11,7 @@ export default function Login() {
     }
     return (
         <div>
+            <Link to={'/'}>返回首页</Link>
             <p>Login</p>
             <div className='select-user-dropdown'>
                 <select onChange={e => handleSelect(e)}>
