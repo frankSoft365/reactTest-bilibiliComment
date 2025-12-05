@@ -12,10 +12,10 @@ export default function New() {
     const [type, setType] = useState('pay');
     const dispatch = useDispatch();
     const [useFor, setUseFor] = useState('drinks');
-    const [money, setMoney] = useState(null);
+    const [money, setMoney] = useState('');
     const navigate = useNavigate();
     const [visible, setVisible] = useState(false);
-    const [date, setDate] = useState(dayjs(new Date()).format('YYYY-MM-DDTHH:mm:ss'));
+    const [date, setDate] = useState(new Date());
     return (
         <div className="new-panel">
             <div className="type-input">
@@ -29,16 +29,17 @@ export default function New() {
                             setVisible(true)
                         }}
                     >
-                        {date}
+                        {dayjs(date).format('YYYY-MM-DD HH:mm')}
                     </Button>
                     <DatePicker
                         visible={visible}
                         onClose={() => {
                             setVisible(false)
                         }}
+                        max={new Date()}
                         precision='minute'
                         onConfirm={val => {
-                            setDate(dayjs(val).format('YYYY-MM-DDTHH:mm:ss'))
+                            setDate(val);
                         }}
                     />
                 </div>

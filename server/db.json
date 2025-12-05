@@ -192,6 +192,13 @@
       "money": -9876,
       "date": "2025-12-05T16:07:08",
       "useFor": "travel"
+    },
+    {
+      "id": "de969d6d-5b26-4cfe-9eae-d26a09b6cfc8",
+      "type": "pay",
+      "money": -55,
+      "date": "2023-11-05T08:17:00.000Z",
+      "useFor": "travel"
     }
   ]
 }
