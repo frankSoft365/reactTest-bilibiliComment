@@ -1,0 +1,76 @@
+.new-panel {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.type-input,
+.use-for {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.pay-income-select {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.pay,
+.income {
+    width: 50px;
+    height: 20px;
+    padding: 1em;
+    margin: 0 0.5em;
+    background-color: rgb(146, 144, 144);
+    text-align: center;
+    color: aliceblue;
+    border-radius: 1em;
+}
+
+.pay,
+.income:hover {
+    cursor: pointer;
+}
+
+.pay-income-select .selected {
+    width: 60px;
+    height: 25px;
+    font-size: 1.5em;
+    font-weight: bold;
+    background-color: greenyellow;
+    color: rgb(15, 15, 15);
+}
+
+.pay-income-select .input {
+    width: 200px;
+}
+
+.use-for-list {
+    list-style: none;
+    min-width: 100px;
+    padding: 0;
+}
+
+.use-for-list li {
+    border: 1px solid black;
+    padding: 0.5em;
+    margin: 0.5em;
+    text-align: center;
+}
+
+.use-for-list li:hover {
+    cursor: pointer;
+    background-color: aquamarine;
+}
+
+.use-for-list li.selected {
+    background-color: greenyellow;
+}
